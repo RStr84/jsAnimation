@@ -1,0 +1,77 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>TopLeftBottemRight</title>
+</head>
+
+<style>
+    #container {
+        width: 400px;
+        height: 400px;
+        position: relative;
+        background: green;
+    }
+    #animate1 {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        background: red;
+    }
+    #animate2 {
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        background: yellow;
+    }
+</style>
+
+<script>
+    function myMove() {
+        let id = null;
+        const elem = document.querySelector("#animate1");
+        let pos = 0;
+        clearInterval(id);
+        id = setInterval(frame, 5);
+        function frame() {
+            if (pos == 375) {
+                clearInterval(id);
+            } else {
+                pos++;
+                elem.style.top = pos + "px";
+                elem.style.left = pos + "px";
+            }
+        }
+    }
+
+    function myMove2() {
+        let id = null;
+        const elem = document.querySelector("#animate2");
+        let pos = 0;
+        clearInterval(id);
+        id = setInterval(frame, 5);
+        function frame() {
+            if (pos == 375) {
+                clearInterval(id);
+            } else {
+                pos++;
+                elem.style.left = pos + "px";
+            }
+        }
+    }
+</script>
+
+<body>
+
+<h2>My First JavaScript Animation</h2>
+
+<p><button onclick="myMove()">Click Me</button></p>
+
+<div id="container">
+    <div id="animate1"></div>
+    <div id="animate2"></div>
+</div>
+
+</body>
+</html>

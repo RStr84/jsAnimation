@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Snake</title>
+</head>
+
+<style>
+    #container {
+        width: 400px;
+        height: 400px;
+        position: relative;
+        background: green;
+    }
+
+    #animate {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        background-color: red;
+    }
+</style>
+<body>
+
+<p>
+    <button onclick="myMoveK()">Click Me</button>
+</p>
+
+<div id="container">
+    <div id="animate"></div>
+</div>
+
+<script>
+
+    // Aufgabe: das rote Quadrat soll sich durchs Div schlängeln
+    function moveRight(callback) {
+        let id = null;
+        const elem = document.querySelector("#animate");
+        let pos = 0;
+        clearInterval(id);
+        id = setInterval(frame, 5);
+
+        function frame() {
+            if (pos >= 350) {
+                clearInterval(id);
+                callback();
+            } else {
+                pos++;
+                elem.style.left = pos + "px";
+            }
+        }
+    }
+
+
+    function moveDown(callback) {
+        let id = null;
+        const elem = document.querySelector("#animate");
+        let pos = 0;
+        clearInterval(id);
+        id = setInterval(frame, 5);
+
+        function frame() {
+            if (pos >= 50) {
+                clearInterval(id);
+                callback();
+            } else {
+                pos++;
+                elem.style.top = pos + "px";
+            }
+        }
+    }
+
+    function moveLeft(callback) {
+        let id = null;
+        const elem = document.querySelector("#animate");
+        let pos = 0;
+        clearInterval(id);
+        id = setInterval(frame, 5);
+
+        function frame() {
+            if (pos >= 350) {
+                clearInterval(id);
+                callback();
+            } else {
+                pos++;
+                elem.style.left = (350 - pos) + "px";
+            }
+        }
+    }
+
+
+    function executeOrder() {
+        moveRight(() => {
+            moveDown(() => {
+                moveLeft(() => {
+                });
+            });
+        });
+    }
+
+
+    // Kurzform //
+
+    function myMoveK() {
+        let id = null;
+        const elem = document.querySelector("#animate");
+        let xpos = 0;   // Abstand links
+        let ypos = 0;   // Abstand top
+        clearInterval(id);
+        id = setInterval(frame, 5);
+
+        const moveRight = function () {
+            xpos++;
+            elem.style.left = xpos + 'px';
+        }
+
+        const moveDown = function () {
+            ypos++;
+            elem.style.top = ypos + 'px';
+        }
+
+        const moveLeft = function () {
+            xpos--;
+            elem.style.left = xpos + 'px';
+        }
+
+        function frame() {
+            if (xpos === 0 && ypos === 350) {
+                clearInterval(id);
+            } else {
+                if (xpos < 350 && ypos === 0) {
+                    moveRight();
+
+                } else if (xpos === 350 && ypos < 50) {
+                    moveDown();
+
+                } else if (xpos > 0 && ypos === 50) {
+                    moveLeft();
+
+                } else if (xpos === 0 && ypos < 100) {
+                    moveDown();
+
+                } else if (xpos < 350 && ypos === 100) {
+                    moveRight();
+
+                } else if (xpos === 350 && ypos < 150) {
+                    moveDown();
+
+                } else if (xpos > 0 && ypos === 150) {
+                    moveLeft();
+
+                } else if (xpos === 0 && ypos < 200) {
+                    moveDown();
+
+                } else if (xpos < 350 && ypos === 200) {
+                    moveRight();
+
+                } else if (xpos === 350 && ypos < 250) {
+                    moveDown();
+
+                } else if (xpos > 0 && ypos === 250) {
+                    moveLeft();
+
+                } else if (xpos === 0 && ypos < 300) {
+                    moveDown();
+
+                } else if (xpos < 350 && ypos === 300) {
+                    moveRight();
+
+                } else if (xpos === 350 && ypos < 350) {
+                    moveDown();
+
+                } else if (xpos > 0 && ypos === 350) {
+                    moveLeft();
+
+                } else
+                    clearInterval(id);
+            }
+        }
+    }
+
+    // Langform //
+    function myMoveL() {
+        let id = null;
+        const elem = document.querySelector("#animate");
+        let xpos = 0;   // Abstand links
+        let ypos = 0;   // Abstand top
+        clearInterval(id);
+        id = setInterval(frame, 5);
+
+        function frame() {
+            if (xpos === 0 && ypos === 350) {
+                clearInterval(id);
+            } else {
+                // nach rechts
+                if (xpos < 350 && ypos === 0) {
+                    xpos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach unten
+                } else if (xpos === 350 && ypos < 50) {
+                    ypos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    //nach links
+                } else if (xpos > 0 && ypos === 50) {
+                    xpos--;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach unten
+                } else if (xpos === 0 && ypos < 100) {
+                    ypos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach rechts
+                } else if (xpos < 350 && ypos === 100) {
+                    xpos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach unten
+                } else if (xpos === 350 && ypos < 150) {
+                    ypos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach links
+                } else if (xpos > 0 && ypos === 150) {
+                    xpos--;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach unten
+                } else if (xpos === 0 && ypos < 200) {
+                    ypos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach rechts
+                } else if (xpos < 350 && ypos === 200) {
+                    xpos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach unten
+                } else if (xpos === 350 && ypos < 250) {
+                    ypos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach links
+                } else if (xpos > 0 && ypos === 250) {
+                    xpos--;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach unten
+                } else if (xpos === 0 && ypos < 300) {
+                    ypos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach rechts
+                } else if (xpos < 350 && ypos === 300) {
+                    xpos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach unten
+                } else if (xpos === 350 && ypos < 350) {
+                    ypos++;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                    // nach links
+                } else if (xpos > 0 && ypos === 350) {
+                    xpos--;
+                    elem.style.left = xpos + "px";
+                    elem.style.top = ypos + "px";
+                    console.log(xpos + ' ' + ypos);
+
+                } else
+                    clearInterval(id);
+            }
+        }
+    }
+
+
+</script>
+
+</body>
+</html>
