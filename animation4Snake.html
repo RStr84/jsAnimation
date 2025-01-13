@@ -24,7 +24,7 @@
 <body>
 
 <p>
-    <button onclick="myMoveK()">Click Me</button>
+    <button onclick="myMoveK2()">Click Me</button>
 </p>
 
 <div id="container">
@@ -35,7 +35,7 @@
 
     // Aufgabe: das rote Quadrat soll sich durchs Div schlängeln
 
-    // Kurzform //
+    // Kurzform mit MoveFunktionen//
     function myMoveK() {
         let id = null;
         const elem = document.querySelector("#animate");
@@ -240,6 +240,67 @@
     }
 
 
+    // SuperKurzform //
+    let id = null;
+
+    function myMoveK2() {
+
+        const elem = document.querySelector("#animate");
+        let xpos = 0;       // Abstand links
+        let ypos = 0;       // Abstand top
+        clearInterval(id);  // falls noch eine (zuvor gestartete Animation) laufen sollte
+
+        // @todo mehrfacher Click auf Knopf führt zu Neustart der Bewegung des roten Quadrats
+        elem.style.left = xpos + '0px';
+        elem.style.top = ypos + '0px';
+
+        // bei frame2 nicht benötigt
+        // const moveRight = function () {
+        //     xpos++;
+        //     elem.style.left = xpos + 'px';
+        // }
+        // const moveDown = function () {
+        //     ypos++;
+        //     elem.style.top = ypos + 'px';
+        // }
+        // const moveLeft = function () {
+        //     xpos--;
+        //     elem.style.left = xpos + 'px';
+        // }
+
+        // Version mit Bedingungen
+        function frame1() {
+            if (xpos === 0 && ypos === 350) {
+                clearInterval(id);
+            } else {
+                if (xpos < 350 && (ypos === 0 || ypos === 100 || ypos === 200 || ypos === 300)) {
+                    moveRight();
+                } else if (xpos > 0 && (ypos === 50 || ypos === 150 || ypos === 250 || ypos === 350)) {
+                    moveLeft();
+                } else {
+                    moveDown();
+                }
+            }
+            id = setInterval(frame1, 5);
+        }
+
+        // ArrayFunction mit includes-Methode
+        function frame2() {
+            if (xpos === 0 && ypos === 350) {
+                clearInterval(id);
+            } else {
+                if (xpos < 350 && [0, 100, 200, 300].includes(ypos)) {
+                    elem.style.left = ++xpos + 'px';
+                } else if (xpos > 0 && [50, 150, 250, 350].includes(ypos)) {
+                    elem.style.left = --xpos + 'px';
+                } else {
+                    elem.style.top = ++ypos + 'px';
+                }
+            }
+        }
+
+        id = setInterval(frame2, 5);
+    }
 </script>
 
 </body>
